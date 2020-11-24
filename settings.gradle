@@ -1,0 +1,2 @@
+rootProject.name='Atelierul_Digital'
+include ':app'
