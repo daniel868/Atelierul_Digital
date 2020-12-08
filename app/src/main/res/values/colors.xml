@@ -7,4 +7,11 @@
     <color name="green_color">#0BCA25</color>
     <color name="teal_color">#21DCF4</color>
     <color name="black_color">#000000</color>
+    <color name="login_color_textView">#BF281D</color>
+    <color name="login_color_button">#2196F3</color>
+    <color name="color_white">#ffffff</color>
+    <color name="orange">#FF9800</color>
+    <color name="azure">#00BCD4</color>
+    <color name="color_red">#DA0C0C</color>
+    <color name="purple_color">#673AB7</color>
 </resources>
