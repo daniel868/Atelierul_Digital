@@ -48,17 +48,23 @@ public class loginActivity extends AppCompatActivity {
         boolean isValid = true;
         if (phoneEditText.getText().toString().isEmpty()) {
             phoneInputLayout.setError("Invalid phone address");
-            isValid=false;
+            isValid = false;
         } else {
             clearError(phoneInputLayout);
         }
         if (textInputEditText.getText().toString().isEmpty()) {
             emailInputLayout.setError("Invalid email address");
-            isValid=false;
+            isValid = false;
         } else {
             clearError(emailInputLayout);
         }
-        if (isValid){
+        if (!isValidateEmailAddress(textInputEditText.getText().toString())) {
+            emailInputLayout.setError("Invalid format email address");
+            isValid = false;
+        } else {
+            clearError(emailInputLayout);
+        }
+        if (isValid) {
             Toast.makeText(this, "Valid data", Toast.LENGTH_SHORT).show();
         }
     }
@@ -70,7 +76,11 @@ public class loginActivity extends AppCompatActivity {
     }
 
     //TODO:Add check validate email address
-    private boolean isValidateEmailAddress() {
+    private boolean isValidateEmailAddress(String emailAddressText) {
+        if (emailAddressText.contains("@gmail.com") || (emailAddressText.contains("@yahoo.com"))
+                || emailAddressText.contains("@")) {
+            return true;
+        }
         return false;
     }
 }
