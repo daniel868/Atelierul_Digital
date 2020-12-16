@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".week_4.ConstraintLayoutActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:src="@drawable/header_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="ContentDescription"
+        android:scaleType="centerCrop"
+        android:id="@+id/header_image"
+        />
+
+    <TextView
+        android:id="@+id/happy_holidays_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Happy Holidays!"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toEndOf="@+id/second_imageView"
+        app:layout_constraintTop_toBottomOf="@id/header_image" />
+
+    <TextView
+        android:id="@+id/from_Daniel_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From Daniel"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toEndOf="@+id/second_imageView"
+        app:layout_constraintTop_toBottomOf="@id/happy_holidays_tv" />
+
+    <ImageView
+        android:id="@+id/second_imageView"
+        android:layout_width="120dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/poster_sparkling"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/from_Daniel_TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Christmas_text"
+        app:layout_constraintTop_toBottomOf="@id/second_imageView"
+        app:layout_constraintLeft_toLeftOf="@id/second_imageView"
+        android:layout_marginTop="15dp"
+        android:id="@+id/Christmas_Text"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@id/Christmas_Text"
+        android:layout_marginTop="20dp"
+        >
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"
+            android:background="#E91E63"
+            android:text="Let it snow"
+            android:textColor="#ffff"
+            android:id="@+id/b1"
+            android:clickable="true"
+            android:focusable="true" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_height="wrap_content"
+            android:background="#E91E63"
+            android:text="Gingles bells"
+            android:textColor="#ffff"
+            android:id="@+id/b2"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
