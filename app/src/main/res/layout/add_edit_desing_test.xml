@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/InputWizard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/image_shape"
+            android:text="New Destination Wizard"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/layoutTripName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTripName"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/InputWizard">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/trip_name_editText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffff"
+                android:hint="Insert trip name"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTripDestination"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layoutTripName"
+            app:layout_constraintStart_toStartOf="@id/layoutTripName"
+            app:layout_constraintEnd_toEndOf="@id/layoutTripName"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/trip_destination_editText"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:hint="Insert trip destination"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:background="#ffff"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <TextView
+            android:id="@+id/selectTripType_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Select trip type"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/radio_group"
+            app:layout_constraintTop_toBottomOf="@id/layoutTripDestination" />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/layoutTripDestination"
+            app:layout_constraintTop_toBottomOf="@id/selectTripType_textView">
+
+            <RadioButton
+                android:id="@+id/cityBreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city_break" />
+
+            <RadioButton
+                android:id="@+id/seaSide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sea_side" />
+
+            <RadioButton
+                android:id="@+id/mountains"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mountains" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/select_price_tV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/select_price"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radio_group"
+            app:layout_constraintVertical_bias="0.28" />
+
+        <SeekBar
+            android:id="@+id/price_select"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:max="100"
+            android:min="0"
+            app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
+            app:layout_constraintStart_toStartOf="@id/select_price_tV"
+            app:layout_constraintTop_toBottomOf="@id/select_price_tV" />
+
+        <ImageButton
+            android:id="@+id/startCalendarImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_insert_invitation_black_24dp"
+            app:layout_constraintStart_toStartOf="@id/price_select"
+            app:layout_constraintTop_toBottomOf="@id/price_select" />
+
+        <TextView
+            android:id="@+id/start_dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/select_start_date"
+            app:layout_constraintStart_toEndOf="@id/startCalendarImg"
+            app:layout_constraintTop_toBottomOf="@id/price_select" />
+
+        <ImageButton
+            android:id="@+id/finishCalendarImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_insert_invitation_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_select" />
+
+        <TextView
+            android:id="@+id/finishDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/finish_date_here"
+            app:layout_constraintEnd_toStartOf="@id/finishCalendarImg"
+            app:layout_constraintTop_toBottomOf="@id/price_select" />
+
+        <RatingBar
+            android:id="@+id/ratingStarBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
+            app:layout_constraintStart_toStartOf="@id/startCalendarImg"
+            app:layout_constraintTop_toBottomOf="@id/selectRatingTv" />
+
+        <TextView
+            android:id="@+id/selectRatingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="21dp"
+            android:text="@string/select_rating"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/startCalendarImg"
+            app:layout_constraintTop_toBottomOf="@id/startCalendarImg" />
+
+        <ImageView
+            android:id="@+id/select_location_imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_add_a_photo_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/radio_group"
+            app:layout_constraintEnd_toEndOf="@id/select_imageTextView"
+            app:layout_constraintStart_toStartOf="@id/select_imageTextView"
+            app:layout_constraintTop_toBottomOf="@id/select_imageTextView" />
+
+
+        <TextView
+            android:id="@+id/select_imageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/select_trip_image"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/selectTripType_textView"
+            app:layout_constraintTop_toBottomOf="@+id/layoutTripDestination" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/insertDataFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:src="@drawable/ic_save_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingStarBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainFragment"
+            android:title="Home" />
+        <item
+            android:id="@+id/aboutUsFragment"
+            android:title="About Us" />
+        <item
+            android:id="@+id/shareFragment"
+            android:title="Share" />
+        <item
+            android:id="@+id/contactFragment"
+            android:title="Contact"/>
+    </group>
+
+</menu>
