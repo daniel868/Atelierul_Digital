@@ -2,6 +2,7 @@ package com.example.atelieruldigitalfinalproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -42,6 +44,7 @@ public class AddEditActivity extends AppCompatActivity {
     private TextView startDateTv, finishDateTv;
     private RatingBar ratingBar;
     private ImageView locationImageView;
+    private String[] dialogBoxOption;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class AddEditActivity extends AppCompatActivity {
         initViews();
 
         saveFab.setOnClickListener(v -> saveData());
-        locationImageView.setOnClickListener(v -> openCamera());
+        locationImageView.setOnClickListener(v -> openDialogBox());
     }
 
     private void initViews() {
@@ -65,6 +68,7 @@ public class AddEditActivity extends AppCompatActivity {
         finishDateTv = findViewById(R.id.finishDateTextView);
         ratingBar = findViewById(R.id.ratingStarBar);
         locationImageView = findViewById(R.id.select_location_imageView);
+        dialogBoxOption = new String[]{"Camera", "Gallery"};
     }
 
     private void saveData() {
@@ -94,6 +98,18 @@ public class AddEditActivity extends AppCompatActivity {
         }
     }
 
+    private void openDialogBox() {
+        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(AddEditActivity.this)
+                .setTitle("Pick an option")
+                .setItems(dialogBoxOption, (dialogInterface, i) -> {
+                    if (i == 0) {
+                        openCamera();
+                    } else if (i == 1) {
+                        openGallery();
+                    }
+                });
+        materialAlertDialogBuilder.show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -24,4 +24,6 @@
     <string name="select_rating">Select Rating</string>
     <string name="select_trip_image">Select trip image</string>
     <string name="trip_name_here">Trip name here</string>
+    <string name="camera_dialog">Camera</string>
+    <string name="gallery_option">Gallery</string>
 </resources>
