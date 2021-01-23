@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/tabsFragment">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -27,5 +27,17 @@
         android:name="com.example.atelieruldigitalfinalproject.UIFragments.ContactFragment"
         android:label="Contact"
         tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.atelieruldigitalfinalproject.UIFragments.FavouriteFragment"
+        android:label="Favourite"
+        tools:layout="@layout/fragment_favourite" />
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.example.atelieruldigitalfinalproject.UIFragments.SwitchFragment"
+        android:label="Trips"
+        tools:layout="@layout/fragment_switch"
+        />
 
 </navigation>

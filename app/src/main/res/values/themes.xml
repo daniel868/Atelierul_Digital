@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
+    <style name="bottomNavigationTheme" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+
+        <item name="android:background">@color/teal_200</item>
+        <item name="itemTextColor">@color/black</item>
+        <item name="itemRippleColor">#43A047</item>
+    </style>
+
 </resources>

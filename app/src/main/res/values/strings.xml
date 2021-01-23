@@ -26,4 +26,9 @@
     <string name="trip_name_here">Trip name here</string>
     <string name="camera_dialog">Camera</string>
     <string name="gallery_option">Gallery</string>
+    <string name="sea_side_option">Sea Side</string>
+    <string name="mountains_option">Mountains</string>
+    <string name="city_break_option">City Break</string>
+    <string name="trip_destination">Trip destination</string>
+    <string name="all_trips">All Trips</string>
 </resources>

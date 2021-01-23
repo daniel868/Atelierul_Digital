@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="#95B6C6"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="16dp"
+    >
 
     <TextView
         android:id="@+id/fullNameTV"

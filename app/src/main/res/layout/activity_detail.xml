@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/detailImgView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/testimg1" />
+
+    <TextView
+        android:id="@+id/detailTripNameTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/detailImgView"
+        app:layout_constraintTop_toTopOf="@+id/detailImgView"
+        tools:text="Trip name here" />
+
+    <TextView
+        android:id="@+id/detailTripDestinationTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailTripType"
+        app:layout_constraintStart_toStartOf="@+id/detailTripNameTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/detailTripNameTxtView"
+        tools:text="Trip destination here" />
+
+    <TextView
+        android:id="@+id/detailTripType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/detailImgView"
+        app:layout_constraintStart_toStartOf="@+id/detailTripNameTxtView"
+        tools:text="Trip type" />
+
+    <TextView
+        android:id="@+id/detailStartDateTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/detailFinishDateTxtView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailImgView"
+        tools:text="Start date here" />
+
+    <TextView
+        android:id="@+id/detailFinishDateTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailStartDateTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/detailImgView"
+        tools:text="Finish date here" />
+
+    <RatingBar
+        android:id="@+id/detailRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/detailFinishDateTxtView"
+        app:layout_constraintStart_toStartOf="@+id/detailStartDateTxtView"
+        app:layout_constraintTop_toBottomOf="@id/detailStartDateTxtView" />
+
+    <TextView
+        android:id="@+id/detailsTripPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/detailStartDateTxtView"
+        app:layout_constraintTop_toBottomOf="@id/detailRatingBar"
+        tools:text="Price here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/detailsTripPrice"
+        app:layout_constraintTop_toBottomOf="@id/detailsTripPrice"
+        tools:text="WeatherAPIHere"
+        android:textSize="20sp"
+        android:id="@+id/detailWeatherAPI"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

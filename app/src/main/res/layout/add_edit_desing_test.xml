@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/image_shape"
-            android:text="New Destination Wizard"
+            android:text="Add new trip"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -45,21 +45,19 @@
             android:id="@+id/layoutTripDestination"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layoutTripName"
-            app:layout_constraintStart_toStartOf="@id/layoutTripName"
             app:layout_constraintEnd_toEndOf="@id/layoutTripName"
-            >
+            app:layout_constraintStart_toStartOf="@id/layoutTripName"
+            app:layout_constraintTop_toBottomOf="@id/layoutTripName">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/trip_destination_editText"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:background="#ffff"
                 android:hint="Insert trip destination"
                 android:textAlignment="center"
-                android:textSize="18sp"
-                android:background="#ffff"
-                />
+                android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <TextView
@@ -113,17 +111,18 @@
             app:layout_constraintTop_toBottomOf="@id/radio_group"
             app:layout_constraintVertical_bias="0.28" />
 
-        <SeekBar
-            android:id="@+id/price_select"
+
+        <com.google.android.material.slider.Slider
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:max="100"
-            android:min="0"
             app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
             app:layout_constraintStart_toStartOf="@id/select_price_tV"
-            app:layout_constraintTop_toBottomOf="@id/select_price_tV" />
+            app:layout_constraintTop_toBottomOf="@id/select_price_tV"
+            android:valueFrom="0.0"
+            android:valueTo="400.0"
+            android:stepSize="10.0"
+            android:id="@+id/priceSlider"
+            />
 
         <ImageButton
             android:id="@+id/startCalendarImg"
@@ -133,8 +132,8 @@
             android:clickable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_insert_invitation_black_24dp"
-            app:layout_constraintStart_toStartOf="@id/price_select"
-            app:layout_constraintTop_toBottomOf="@id/price_select" />
+            app:layout_constraintStart_toStartOf="@id/select_price_tV"
+            app:layout_constraintTop_toBottomOf="@id/priceSlider" />
 
         <TextView
             android:id="@+id/start_dateTextView"
@@ -144,7 +143,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/select_start_date"
             app:layout_constraintStart_toEndOf="@id/startCalendarImg"
-            app:layout_constraintTop_toBottomOf="@id/price_select" />
+            app:layout_constraintTop_toBottomOf="@id/priceSlider" />
 
         <ImageButton
             android:id="@+id/finishCalendarImg"
@@ -156,7 +155,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_insert_invitation_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/price_select" />
+            app:layout_constraintTop_toBottomOf="@id/priceSlider" />
 
         <TextView
             android:id="@+id/finishDateTextView"
@@ -166,9 +165,10 @@
             android:layout_marginEnd="10dp"
             android:text="@string/finish_date_here"
             app:layout_constraintEnd_toStartOf="@id/finishCalendarImg"
-            app:layout_constraintTop_toBottomOf="@id/price_select" />
+            app:layout_constraintTop_toBottomOf="@id/priceSlider" />
 
         <RatingBar
+            android:layout_marginTop="10dp"
             android:id="@+id/ratingStarBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
             android:text="@string/select_rating"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/startCalendarImg"
+            app:layout_constraintStart_toStartOf="@id/select_price_tV"
             app:layout_constraintTop_toBottomOf="@id/startCalendarImg" />
 
         <ImageView
