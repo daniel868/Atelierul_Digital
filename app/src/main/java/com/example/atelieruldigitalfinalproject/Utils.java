@@ -68,16 +68,16 @@ public class Utils {
         Bitmap img2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.testimg2);
         Bitmap img3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.testimg3);
 
-        InputData inputData0 = new InputData("TripItem1", "TripTitle1", "Mountain", 80f, 3.5f, img3, 2, 3, 2, 2, 2020, 2020);
+        InputData inputData0 = new InputData("TripItem1", "TripTitle1", context.getString(R.string.mountains_option), 80f, 3.5f, img3, 2, 3, 2, 2, 2020, 2020);
         inputData0.setId(0);
         inputData0.setFavourite(true);
-        InputData inputData1 = new InputData("TripItem2", "TripTitle2", "Mountain", 300f, 3.5f, img1, 2, 3, 2, 2, 2020, 2020);
+        InputData inputData1 = new InputData("TripItem2", "TripTitle2", context.getString(R.string.sea_side_option), 300f, 3.5f, img1, 2, 3, 2, 2, 2020, 2020);
         inputData1.setId(1);
         inputData1.setFavourite(true);
-        InputData inputData2 = new InputData("TripItem3", "TripTitle3", "Mountain", 350f, 3.5f, img2, 2, 3, 2, 4, 2020, 2020);
+        InputData inputData2 = new InputData("TripItem3", "TripTitle3", context.getString(R.string.sea_side_option), 350f, 3.5f, img2, 2, 3, 2, 4, 2020, 2020);
         inputData2.setId(2);
         inputData2.setFavourite(false);
-        InputData inputData3 = new InputData("TripItem4", "TripTitle4", "Mountain", 100f, 3.5f, img3, 2, 3, 3, 1, 2020, 2020);
+        InputData inputData3 = new InputData("TripItem4", "TripTitle4", context.getString(R.string.city_break_option), 100f, 3.5f, img3, 2, 3, 3, 1, 2020, 2020);
         inputData3.setId(3);
         inputData3.setFavourite(true);
 

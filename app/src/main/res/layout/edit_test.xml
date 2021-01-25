@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A7D4EA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/infoPriceTxtView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/travel1"
+                android:id="@+id/infoImageView"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/infoStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/start_date"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardViewImg"
+            app:layout_constraintTop_toTopOf="@id/cardViewImg" />
+
+        <TextView
+            android:id="@+id/infoStartDateTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="20/03/2020"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/infoStartDate"
+            app:layout_constraintStart_toStartOf="@id/infoStartDate"
+            app:layout_constraintTop_toBottomOf="@id/infoStartDate" />
+
+        <TextView
+            android:id="@+id/infoFinishDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/finish_date"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/infoStartDateTxtView"
+            app:layout_constraintStart_toStartOf="@id/infoStartDateTxtView"
+            app:layout_constraintTop_toBottomOf="@id/infoStartDateTxtView" />
+
+        <TextView
+            android:id="@+id/infoFinishDateTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="25/03/2020"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/infoFinishDate"
+            app:layout_constraintTop_toBottomOf="@id/infoFinishDate" />
+
+        <TextView
+            android:id="@+id/infoPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/price"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/infoFinishDateTxtView"
+            app:layout_constraintStart_toStartOf="@id/infoFinishDateTxtView"
+            app:layout_constraintTop_toBottomOf="@id/infoFinishDateTxtView" />
+
+        <TextView
+            android:id="@+id/infoPriceTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="$ 20"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/infoPrice"
+            app:layout_constraintStart_toStartOf="@id/infoPrice"
+            app:layout_constraintTop_toBottomOf="@id/infoPrice" />
+
+        <TextView
+            android:id="@+id/infoTripNameTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            tools:text="Maldive, 3 Star Hotel, 7 days, all - inclusive"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/cardViewImg"
+            app:layout_constraintTop_toBottomOf="@id/cardViewImg" />
+
+        <TextView
+            android:id="@+id/infoTripDestinationTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="Maldive, AN"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/infoTripNameTxtView"
+            app:layout_constraintTop_toBottomOf="@id/infoTripNameTxtView" />
+
+        <TextView
+            android:id="@+id/infoTripTypeTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/sea_side"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/infoTripDestinationTxtView"
+            app:layout_constraintTop_toBottomOf="@id/infoTripDestinationTxtView" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/itemCard2"
+            app:layout_constraintStart_toStartOf="@id/cardViewImg"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/restaurant" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/itemCard3"
+            app:layout_constraintStart_toEndOf="@id/itemCard1"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/bed" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/itemCard4"
+            app:layout_constraintStart_toEndOf="@id/itemCard2"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/parking" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/itemCard5"
+            app:layout_constraintStart_toEndOf="@id/itemCard3"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/wifi" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toStartOf="@id/itemCard6"
+            app:layout_constraintStart_toEndOf="@id/itemCard4"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/swimming" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemCard6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/itemCard5"
+            app:layout_constraintTop_toBottomOf="@id/line">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#A7D4EA"
+                android:src="@drawable/lock" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="#D3C5C5"
+            app:layout_constraintTop_toBottomOf="@id/infoTripTypeTxtView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/utilities"
+            app:layout_constraintBottom_toTopOf="@id/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <View
+            android:id="@+id/ratingLine"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="30dp"
+            android:background="#D3C5C5"
+            app:layout_constraintTop_toBottomOf="@id/itemCard1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rating"
+            app:layout_constraintBottom_toTopOf="@id/ratingLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RatingBar
+            android:id="@+id/infoRatinBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/itemCard1"
+            app:layout_constraintTop_toBottomOf="@id/ratingLine" />
+
+
+        <View
+            android:id="@+id/sameLine"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="#D3C5C5"
+            app:layout_constraintTop_toBottomOf="@id/infoRatinBar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/suggested_trips"
+            app:layout_constraintBottom_toTopOf="@id/sameLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestedTrips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/sameLine" />
+
+        <TextView
+            android:id="@+id/infoMaxTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            tools:text="Current Temperature: 30 Degree"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/infoTripNameTxtView"
+            app:layout_constraintStart_toEndOf="@id/infoTripDestinationTxtView"
+            app:layout_constraintTop_toBottomOf="@id/infoTripNameTxtView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

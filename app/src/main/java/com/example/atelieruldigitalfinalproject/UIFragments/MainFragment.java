@@ -21,6 +21,9 @@ import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.MyLongList
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnClickListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnTogglePressListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.TripItemAdapter;
+import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.DataAPI.WeatherData;
+import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.NetworkClass;
+import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.WeatherService;
 import com.example.atelieruldigitalfinalproject.DetailActivity;
 import com.example.atelieruldigitalfinalproject.R;
 import com.example.atelieruldigitalfinalproject.Utils;
@@ -28,6 +31,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,6 +48,8 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
     private RecyclerView tripRecycleView;
     private List<InputData> inputData = new ArrayList<>();
 
+
+    private WeatherService weatherService;
 
     public MainFragment() {
 
@@ -56,6 +65,19 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
 
         floatingActionButton.setOnClickListener(view1 -> showAddEditActivity());
 
+        weatherService = NetworkClass.getInstance().create(WeatherService.class);
+
+//        weatherService.getDataByCity("Rome,IT").enqueue(new Callback<WeatherData>() {
+//            @Override
+//            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
+//                Log.d(TAG, "onResponse:Maxim Temperature "+response.body().getMain().getTempMax());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<WeatherData> call, Throwable t) {
+//                Log.e(TAG, "onFailure: ",t );
+//            }
+//        });
 
     }
 

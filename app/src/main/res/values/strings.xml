@@ -31,4 +31,10 @@
     <string name="city_break_option">City Break</string>
     <string name="trip_destination">Trip destination</string>
     <string name="all_trips">All Trips</string>
+    <string name="utilities">Utilities</string>
+    <string name="rating">Rating</string>
+    <string name="suggested_trips">Suggested trips</string>
+    <string name="start_date">Start Date</string>
+    <string name="finish_date">Finish Date</string>
+    <string name="price">Price</string>
 </resources>
