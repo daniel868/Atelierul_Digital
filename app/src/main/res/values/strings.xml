@@ -16,4 +16,16 @@ Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."</string>
     <string name="short_text">This is a short text</string>
     <string name="Christmas_text">Have yourself a merry little Christmas\n Let your heart be light\n From now on, our troubles will be of sight</string>
+    <string name="go_to_second">Go to second</string>
+    <string name="second_activity">Second activity</string>
+    <string name="first_long_text">This is the first long text block</string>
+    <string name="second_long_text">This is the second long text block</string>
+    <string name="third_long_text">This is the third long text block</string>
+    <string name="_1st_button">1st button</string>
+    <string name="_2nd_button">2nd button</string>
+    <string name="_3rd_button">3rd button</string>
+    <string name="send">Send</string>
+    <string name="message_received">Message received</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 </resources>
