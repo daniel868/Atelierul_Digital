@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_limitor_2"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/detail_activity_2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/trip_destination_here"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:maxLines="2"
+            android:text="@string/visit_trip_destination_here"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/available"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/trip_destination_here"
+            app:layout_constraintTop_toBottomOf="@id/trip_destination_here" />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/type"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/available"
+            app:layout_constraintTop_toBottomOf="@id/available" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/price"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/type"
+            app:layout_constraintTop_toBottomOf="@id/type" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            style="@style/Widget.MaterialComponents.Slider"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price" />
+
+        <TextView
+            android:id="@+id/personsNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/price"
+            app:layout_constraintTop_toBottomOf="@id/slider"
+            tools:text="4 persons" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/slider"
+            app:layout_constraintTop_toTopOf="@id/personsNumber"
+            tools:text="Total: $100" />
+
+        <TextView
+            android:id="@+id/start_finish_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="20-03-2020 / 21-04-2020"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/available"
+            app:layout_constraintTop_toTopOf="@id/available" />
+
+        <TextView
+            android:id="@+id/trip_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/type"
+            app:layout_constraintTop_toTopOf="@id/type"
+            tools:text="Sea Side" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/price"
+            app:layout_constraintTop_toTopOf="@id/price"
+            tools:text="$50"
+            android:id="@+id/trip_price"
+            />
+
+        <ImageView
+            android:id="@+id/feels_like_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/thermometer"
+            app:layout_constraintStart_toStartOf="@id/personsNumber"
+            app:layout_constraintTop_toBottomOf="@id/personsNumber" />
+
+        <TextView
+            android:id="@+id/feel_like_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feels_like"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/feels_like_picture"
+            app:layout_constraintTop_toTopOf="@id/feels_like_picture" />
+
+        <ImageView
+            android:id="@+id/humidity_like_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/humidity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/personsNumber" />
+
+        <TextView
+            android:id="@+id/humidity_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/humidity"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/humidity_like_picture"
+            app:layout_constraintTop_toTopOf="@id/feels_like_picture" />
+
+        <ImageView
+            android:id="@+id/wind_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wind"
+            app:layout_constraintStart_toStartOf="@id/personsNumber"
+            app:layout_constraintTop_toBottomOf="@id/feels_like_picture" />
+
+        <TextView
+            android:id="@+id/wind_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/wind"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/feel_like_textView"
+            app:layout_constraintTop_toTopOf="@id/wind_picture" />
+
+        <ImageView
+            android:id="@+id/minim_temperature_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sun"
+            app:layout_constraintBottom_toBottomOf="@id/wind_picture"
+            app:layout_constraintStart_toStartOf="@id/humidity_like_picture" />
+
+        <TextView
+            android:id="@+id/minim_temperature_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/minim_temp"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/minim_temperature_imageView"
+            app:layout_constraintTop_toTopOf="@id/minim_temperature_imageView" />
+
+        <TextView
+            android:id="@+id/feels_like_API"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/feel_like_textView"
+            app:layout_constraintTop_toBottomOf="@id/feel_like_textView"
+            tools:text="30 degree" />
+
+        <TextView
+            android:id="@+id/humidity_API"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/humidity_textView"
+            app:layout_constraintTop_toBottomOf="@id/humidity_textView"
+            tools:text="30%" />
+
+        <TextView
+            android:id="@+id/wind_API"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/wind_textView"
+            app:layout_constraintTop_toBottomOf="@id/wind_textView"
+            tools:text="30 km/h" />
+
+        <TextView
+            android:id="@+id/minim_API"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/minim_temperature_textView"
+            app:layout_constraintTop_toBottomOf="@id/minim_temperature_textView"
+            tools:text="25 degree" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

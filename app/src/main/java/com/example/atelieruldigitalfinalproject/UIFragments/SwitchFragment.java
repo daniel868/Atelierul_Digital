@@ -10,8 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
 import com.example.atelieruldigitalfinalproject.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -19,6 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwitchFragment extends Fragment {
+    private MainFragment mainFragment;
+    private FavouriteFragment favouriteFragment;
+    private Repository repository;
+
+    private ViewPager viewPager;
+
     public SwitchFragment() {
     }
 
@@ -26,18 +35,29 @@ public class SwitchFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_switch, container, false);
-        ViewPager viewPager = view.findViewById(R.id.favouriteViewPager);
-        setupViewPager(viewPager);
+        repository = new Repository(container.getContext());
+        mainFragment = new MainFragment();
+        favouriteFragment = new FavouriteFragment();
 
+        viewPager = view.findViewById(R.id.favouriteViewPager);
+
+        setupViewPager(viewPager);
         TabLayout tabLayout = view.findViewById(R.id.favouriteTab);
         tabLayout.setupWithViewPager(viewPager);
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new MainFragment(), "All List");
-        adapter.addFragment(new FavouriteFragment(), "Favourite List");
+        adapter.addFragment(mainFragment, "All List");
+        adapter.addFragment(favouriteFragment, "Favourite List");
         viewPager.setAdapter(adapter);
     }
 

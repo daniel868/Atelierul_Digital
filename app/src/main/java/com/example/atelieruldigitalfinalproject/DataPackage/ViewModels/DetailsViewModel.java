@@ -4,9 +4,8 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
 
 public class DetailsViewModel extends AndroidViewModel {
     private InputData inputData;

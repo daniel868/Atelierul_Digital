@@ -9,36 +9,28 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.atelieruldigitalfinalproject.AddEditActivity;
-import com.example.atelieruldigitalfinalproject.DataPackage.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnDeleteButtonClick;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.MyLongListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnClickListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnTogglePressListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.TripItemAdapter;
-import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.DataAPI.WeatherData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.NetworkClass;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.WeatherService;
 import com.example.atelieruldigitalfinalproject.DetailActivity;
 import com.example.atelieruldigitalfinalproject.R;
-import com.example.atelieruldigitalfinalproject.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MainFragment extends Fragment implements MyLongListener, OnTogglePressListener, OnClickListener {
+public class MainFragment extends Fragment implements MyLongListener, OnTogglePressListener, OnClickListener, OnDeleteButtonClick {
     private static final String TAG = "MainFragment";
     public static final int ADD_TRIP_ID = 101;
     public static final int EDIT_TRIP_ID = 102;
@@ -46,10 +38,9 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
 
     private FloatingActionButton floatingActionButton;
     private RecyclerView tripRecycleView;
-    private List<InputData> inputData = new ArrayList<>();
 
+    private Repository repository;
 
-    private WeatherService weatherService;
 
     public MainFragment() {
 
@@ -65,25 +56,12 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
 
         floatingActionButton.setOnClickListener(view1 -> showAddEditActivity());
 
-        weatherService = NetworkClass.getInstance().create(WeatherService.class);
-
-//        weatherService.getDataByCity("Rome,IT").enqueue(new Callback<WeatherData>() {
-//            @Override
-//            public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
-//                Log.d(TAG, "onResponse:Maxim Temperature "+response.body().getMain().getTempMax());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<WeatherData> call, Throwable t) {
-//                Log.e(TAG, "onFailure: ",t );
-//            }
-//        });
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
@@ -93,11 +71,13 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
     }
 
     private void setRecycleViewData() {
-        inputData = Utils.testItems(getContext());
-        TripItemAdapter tripItemAdapter = new TripItemAdapter(this, this::onTogglePress, this::onClick);
-        tripItemAdapter.setDataList(inputData);
+        TripItemAdapter tripItemAdapter = new TripItemAdapter(this, this, this::onClick, this);
         tripRecycleView.setAdapter(tripItemAdapter);
         tripRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        repository = new Repository(getContext());
+        repository.getAllTrips().observe(getViewLifecycleOwner(), tripItemAdapter::setDataList);
+
     }
 
 
@@ -125,21 +105,21 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
 
     @Override
     public void onTogglePress(InputData inputData, TripItemAdapter tripItemAdapter) {
-        if (inputData.isFavourite())
-            inputData.setFavourite(false);
-        else
-            inputData.setFavourite(true);
-        Log.d(TAG, "onTogglePress: After update");
-        for (InputData inputData1 : Utils.testItems(getContext())) {
-            Log.d(TAG, "onTogglePress: " + inputData1.isFavourite());
-        }
-        tripItemAdapter.notifyDataSetChanged();
+        inputData.setFavourite(!inputData.isFavourite());
+
+        repository.update(inputData);
     }
+
 
     @Override
     public void onClick(int id) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(ID_POST, id);
         startActivity(intent);
+    }
+
+    @Override
+    public void delete(InputData inputData) {
+        repository.delete(inputData);
     }
 }

@@ -37,4 +37,18 @@
     <string name="start_date">Start Date</string>
     <string name="finish_date">Finish Date</string>
     <string name="price">Price</string>
+    <string name="trip_name_error">Trip name cannot be empty</string>
+    <string name="trip_destination_error">\"Trip destination cannot be empty \"</string>
+    <string name="trip_date_error">Trip start date cannot be empty</string>
+    <string name="trip_finish_date_error">Trip finish date cannot be empty</string>
+    <string name="visit_trip_destination_here">Visit trip destination here</string>
+    <string name="available">Available:</string>
+    <string name="type">Type:</string>
+    <string name="feels_like">Feels like:</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="minim_temp">Minim Temp</string>
+    <string name="category">Category</string>
+    <string name="top_places">Top places</string>
+    <string name="search">Search</string>
 </resources>

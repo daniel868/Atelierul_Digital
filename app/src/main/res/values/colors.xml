@@ -9,13 +9,21 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--primary-->
-    <color name="green">#8bc34a</color>
-    <color name="green_light">#bef67a</color>
-    <color name="green_dark">#5a9216</color>
+    <color name="green">#4CAF50</color>
+    <color name="green_light">#C8E6C9</color>
+    <color name="green_dark">#388E3C</color>
 
     <!--secondary-->
 
     <color name="yellow">#fff176</color>
     <color name="yellow_light">#ffffa8</color>
     <color name="yellow_dark">#cabf45</color>
+
+
+    <color name="accent_color">#FFC107</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="recycle_background_color">#ECE9DC</color>
+    <color name="tab_background_color">#D5D2C8</color>
+
 </resources>

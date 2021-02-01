@@ -23,6 +23,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTripName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +34,8 @@
                 android:id="@+id/trip_name_editText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffff"
                 android:hint="Insert trip name"
+                android:maxLines="2"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
@@ -43,6 +44,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutTripDestination"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/layoutTripName"
@@ -53,7 +55,6 @@
                 android:id="@+id/trip_destination_editText"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:background="#ffff"
                 android:hint="Insert trip destination"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -113,16 +114,15 @@
 
 
         <com.google.android.material.slider.Slider
+            android:id="@+id/priceSlider"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
-            app:layout_constraintStart_toStartOf="@id/select_price_tV"
-            app:layout_constraintTop_toBottomOf="@id/select_price_tV"
+            android:stepSize="10.0"
             android:valueFrom="0.0"
             android:valueTo="400.0"
-            android:stepSize="10.0"
-            android:id="@+id/priceSlider"
-            />
+            app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
+            app:layout_constraintStart_toStartOf="@id/select_price_tV"
+            app:layout_constraintTop_toBottomOf="@id/select_price_tV" />
 
         <ImageButton
             android:id="@+id/startCalendarImg"
@@ -168,10 +168,10 @@
             app:layout_constraintTop_toBottomOf="@id/priceSlider" />
 
         <RatingBar
-            android:layout_marginTop="10dp"
             android:id="@+id/ratingStarBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:numStars="5"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="@id/finishCalendarImg"
@@ -223,6 +223,8 @@
             android:src="@drawable/ic_save_black_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingStarBar" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

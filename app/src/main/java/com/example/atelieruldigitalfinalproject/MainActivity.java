@@ -10,12 +10,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
     //TODO: implements a navigation drawer activity
     //TODO: control all fragments from here
 
@@ -59,12 +64,19 @@ public class MainActivity extends AppCompatActivity {
 
         appBarConfiguration = new AppBarConfiguration.Builder(getTopLevelDestination()).
                 setOpenableLayout(drawerLayout).build();
+
+        navigationView.getMenu().findItem(R.id.shareFragment2).setOnMenuItemClickListener(item -> {
+            shareApplication();
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     private int[] getTopLevelDestination() {
-        return new int[]{R.id.tabsFragment, R.id.aboutUsFragment, R.id.shareFragment, R.id.contactFragment};
+        return new int[]{R.id.tabsFragment, R.id.aboutUsFragment, R.id.contactFragment,R.id.categoryFragment};
     }
 
     @Override
@@ -93,5 +105,13 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
+    private void shareApplication(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my travel application");
+        sendIntent.setType("text/plain");
 
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 }

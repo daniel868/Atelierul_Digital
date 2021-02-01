@@ -7,14 +7,28 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/favouriteAppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/recycle_background_color"
+        app:liftOnScroll="true">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/favouriteTab"
-            style="@style/Widget.MaterialComponents.TabLayout"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            app:cardCornerRadius="10dp"
+            android:layout_margin="10dp"
+            >
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/favouriteTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/tab_background_color"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="3dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

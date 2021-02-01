@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/snackBarView"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/recycle_background_color"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutTripName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/trip_name_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/insert_trip_name"
+                    android:maxLines="2"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutTripDestination"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/layoutTripName"
+                app:layout_constraintStart_toStartOf="@id/layoutTripName"
+                app:layout_constraintTop_toBottomOf="@id/layoutTripName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/trip_destination_editText"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/insert_trip_destination"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputStartDateField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/layoutTripDestination"
+                app:layout_constraintStart_toStartOf="@id/layoutTripDestination"
+                app:layout_constraintTop_toBottomOf="@id/layoutTripDestination">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/start_dateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/start_date"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputFinishDateField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/layoutTripDestination"
+                app:layout_constraintStart_toStartOf="@id/layoutTripDestination"
+                app:layout_constraintTop_toBottomOf="@id/inputStartDateField">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/finishDateTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/finish_date"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageButton
+                android:id="@+id/startCalendarImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/recycle_background_color"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_insert_invitation_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/inputStartDateField"
+                app:layout_constraintEnd_toStartOf="@id/inputStartDateField"
+                app:layout_constraintTop_toTopOf="@id/inputStartDateField" />
+
+            <ImageButton
+                android:id="@+id/finishCalendarImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/recycle_background_color"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_insert_invitation_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/inputFinishDateField"
+                app:layout_constraintEnd_toStartOf="@id/inputFinishDateField"
+                app:layout_constraintTop_toTopOf="@id/inputFinishDateField" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/recycle_background_color"
+                android:scaleType="centerCrop"
+                android:src="@drawable/travel"
+                app:layout_constraintBottom_toBottomOf="@id/layoutTripName"
+                app:layout_constraintEnd_toStartOf="@id/layoutTripName"
+                app:layout_constraintTop_toTopOf="@id/layoutTripName" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/recycle_background_color"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_baseline_location_on_24"
+                app:layout_constraintBottom_toBottomOf="@id/layoutTripDestination"
+                app:layout_constraintEnd_toStartOf="@id/layoutTripDestination"
+                app:layout_constraintTop_toTopOf="@id/layoutTripDestination" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include layout="@layout/add_edit_v3" />
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,18 +1,25 @@
 package com.example.atelieruldigitalfinalproject;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -23,32 +30,44 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
 import com.example.atelieruldigitalfinalproject.DataPackage.ViewModels.AddEditViewModel;
-import com.example.atelieruldigitalfinalproject.DataPackage.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
 import com.example.atelieruldigitalfinalproject.UIFragments.MainFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, RatingBar.OnRatingBarChangeListener, Slider.OnChangeListener {
     private static final String TAG = "AddEditActivity";
     public static final int GALLERY_REQUEST_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
+    public static final int DEFAULT_VALUE = -1;
 
     //TODO: Views
     private FloatingActionButton saveFab;
-    private TextInputEditText tripNameEditText, tripDestinationEditText;
+    private TextInputLayout tripNameLayout, tripDestinationLayout, startDateLayout, finishDateLayout;
+    private TextInputEditText tripNameEditText, tripDestinationEditText, startDateTv, finishDateTv;
     private RadioGroup tripOptionRadioGroup;
     private Slider priceSlider;
     private ImageButton startDateBtn, finishDateBtn;
-    private TextView startDateTv, finishDateTv;
+    //    private TextView , ;
     private RatingBar ratingBar;
     private ImageView locationImageView;
     private String[] dialogBoxOption;
@@ -59,9 +78,18 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
     private InputData inputData;
     private AddEditViewModel addEditViewModel;
 
+    private String currentPhotoPath;
+    private Uri photoUri;
+
+    private Repository repository;
+
+    int updatedId = DEFAULT_VALUE;
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_edit_desing_test);
+        setContentView(R.layout.add_edit_v2);
+        repository = new Repository(this);
+
         initViews();
         initData();
         handleEditIntent();
@@ -73,28 +101,34 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         tripOptionRadioGroup.setOnCheckedChangeListener(this::onCheckedChanged);
         ratingBar.setOnRatingBarChangeListener(this::onRatingChanged);
         priceSlider.addOnChangeListener(this::onValueChange);
-
-
     }
 
     private void handleEditIntent() {
         if (getIntent() != null) {
-            int id = getIntent().getIntExtra(MainFragment.ID_POST, -1);
-            if (id != -1) {
-                Toast.makeText(AddEditActivity.this, "ID sented to edit" + id, Toast.LENGTH_SHORT).show();
-                handleEditInputData(Utils.getById(id, AddEditActivity.this));
+            updatedId = getIntent().getIntExtra(MainFragment.ID_POST, -1);
+            if (updatedId != -1) {
+                Toast.makeText(AddEditActivity.this, "ID sented to edit" + updatedId, Toast.LENGTH_SHORT).show();
+                repository.getTripById(updatedId).observe(this, inputData -> handleEditInputData(inputData));
+
             }
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void handleEditInputData(InputData inputData) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
         tripDestinationEditText.setText(inputData.getTripDestination());
         tripNameEditText.setText(inputData.getTripName());
-        locationImageView.setImageBitmap(inputData.getImageBitmap());
-        startDateTv.setText(new StringBuilder().append(inputData.getStartDay()).append("/").append(inputData.getStartMonth()).append("/").append(inputData.getStartYear()).toString());
-        finishDateTv.setText(new StringBuilder().append(inputData.getFinishDay()).append("/").append(inputData.getFinishMonth()).append("/").append(inputData.getFinishYear()).toString());
+
+        startDateTv.setText(simpleDateFormat.format(inputData.getStartDate()));
+        finishDateTv.setText(simpleDateFormat.format(inputData.getFinishDate()));
         ratingBar.setRating(inputData.getRatingBar());
         priceSlider.setValue(inputData.getPrice());
+
+        locationImageView.setImageURI(Uri.parse(inputData.getImageFilePath()));
+
+        currentPhotoPath = inputData.getImageFilePath();
 
         if (inputData.getTripType().equals(getString(R.string.mountains_option))) {
             tripOptionRadioGroup.check(R.id.mountains);
@@ -106,6 +140,7 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         if (inputData.getTripType().equals(getString(R.string.sea_side_option))) {
             tripOptionRadioGroup.check(R.id.seaSide);
         }
+
 
         this.inputData = inputData;
 
@@ -124,6 +159,11 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         ratingBar = findViewById(R.id.ratingStarBar);
         locationImageView = findViewById(R.id.select_location_imageView);
 
+        tripNameLayout = findViewById(R.id.layoutTripName);
+        tripDestinationLayout = findViewById(R.id.layoutTripDestination);
+        startDateLayout = findViewById(R.id.inputStartDateField);
+        finishDateLayout = findViewById(R.id.inputFinishDateField);
+
         dialogBoxOption = new String[]{"Camera", "Gallery"};
 
         calendar = Calendar.getInstance();
@@ -138,7 +178,7 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
 
     private void initData() {
         addEditViewModel = new ViewModelProvider(AddEditActivity.this).get(AddEditViewModel.class);
-        inputData = InputData.getDefaultInputData();
+        inputData = new InputData();
 
         if (addEditViewModel.getImageBitmap() != null) {
             locationImageView.setImageBitmap(addEditViewModel.getImageBitmap());
@@ -157,14 +197,56 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         inputData.setTripDestination(tripDestinationEditText.getText().toString());
     }
 
+    private void checkInputTextBoxError() {
+        if (tripNameEditText.getText().toString().equals("")) {
+            tripNameLayout.setError(getString(R.string.trip_name_error));
+        } else {
+            clearError(tripNameLayout);
+        }
+        if (tripDestinationEditText.getText().toString().equals("")) {
+            tripDestinationLayout.setError(getString(R.string.trip_destination_error));
+        } else {
+            clearError(tripDestinationLayout);
+        }
+        if (startDateTv.getText().toString().equals("")) {
+            startDateLayout.setError(getString(R.string.trip_date_error));
+        } else {
+            clearError(startDateLayout);
+        }
+        if (finishDateTv.getText().toString().equals("")) {
+            finishDateLayout.setError(getString(R.string.trip_finish_date_error));
+        } else {
+            clearError(finishDateLayout);
+        }
+    }
+
+    private void clearError(TextInputLayout textInputLayout) {
+        if (textInputLayout != null) {
+            textInputLayout.setError(null);
+        }
+    }
+
     private void saveData() {
         Intent intent = new Intent();
         setEditTextData();
-        if (Utils.checkValidData(inputData)) {
+        checkInputTextBoxError();
+        if (Utils.checkValidData(inputData) && updatedId == DEFAULT_VALUE) {
+            repository.insert(inputData);
+            galleryAddPicture(new File(inputData.getImageFilePath()));
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+        } else if (Utils.checkValidData(inputData) && updatedId != DEFAULT_VALUE) {
+            if (!inputData.getImageFilePath().equals(currentPhotoPath)) {
+                galleryAddPicture(new File(inputData.getImageFilePath()));
+            }
+            repository.update(inputData);
             setResult(Activity.RESULT_OK, intent);
             finish();
         } else {
-            Toast.makeText(AddEditActivity.this, "Invalid Data", Toast.LENGTH_SHORT).show();
+            View view = findViewById(R.id.snackBarView);
+            Snackbar.make(view, "Invalid Input Data", BaseTransientBottomBar.LENGTH_SHORT)
+                    .setAction("OK", v -> {
+                    }).show();
         }
     }
 
@@ -172,8 +254,7 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
         } else {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+            takePictureIntent();
         }
     }
 
@@ -200,27 +281,27 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         materialAlertDialogBuilder.show();
     }
 
-    private void openCalendar(TextView txtView) {
+    @SuppressLint("SimpleDateFormat")
+    private void openCalendar(TextInputEditText txtView) {
         datePickerDialog = new DatePickerDialog(AddEditActivity.this, (view, year, month, dayOfMonth) -> {
-            txtView.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+            calendar.set(year, month, dayOfMonth);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+            txtView.setText(simpleDateFormat.format(calendar.getTime()));
 
             if (txtView.getId() == R.id.start_dateTextView) {
-                inputData.setStartDay(dayOfMonth);
-                inputData.setStartMonth(month + 1);
-                inputData.setStartYear(year);
-
+                inputData.setStartDate(calendar.getTime());
                 addEditViewModel.setStartDateTextView(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
 
             if (txtView.getId() == R.id.finishDateTextView) {
-                inputData.setFinishDay(dayOfMonth);
-                inputData.setFinishMonth(month + 1);
-                inputData.setFinishMonth(year);
-
+                inputData.setFinishDate(calendar.getTime());
                 addEditViewModel.setFinishDataTextView(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
-
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+
         datePickerDialog.show();
     }
 
@@ -229,35 +310,33 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == CAMERA_REQUEST_CODE) {
             Log.d(TAG, "onActivityResult: Camera image selected");
-
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            locationImageView.setImageBitmap(photo);
-            if (photo != null) {
-                inputData.setImageBitmap(photo);
-                addEditViewModel.setImageBitmap(photo);
-            }
+            setPic(currentPhotoPath);
+            inputData.setImageFilePath(currentPhotoPath);
         }
         if (resultCode == RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
             Log.d(TAG, "onActivityResult: Gallery image selected");
             Uri selectedData = data.getData();
-            if (selectedData != null) {
-                ImageDecoder.Source source = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    source = ImageDecoder.createSource(this.getContentResolver(), selectedData);
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    try {
-                        locationImageView.setImageBitmap(ImageDecoder.decodeBitmap(source));
-                        inputData.setImageBitmap(ImageDecoder.decodeBitmap(source));
-
-                        addEditViewModel.setImageBitmap(ImageDecoder.decodeBitmap(source));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                Log.d(TAG, "onActivityResult: Null Pointer exception");
-            }
+            currentPhotoPath = getRealPathFromURI(selectedData);
+            setPic(currentPhotoPath);
+            inputData.setImageFilePath(currentPhotoPath);
+//            if (selectedData != null) {
+//                ImageDecoder.Source source = null;
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//                    source = ImageDecoder.createSource(this.getContentResolver(), selectedData);
+//                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//                    try {
+//                        locationImageView.setImageBitmap(ImageDecoder.decodeBitmap(source));
+//
+//
+//                        addEditViewModel.setImageBitmap(ImageDecoder.decodeBitmap(source));
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            } else {
+//                Log.d(TAG, "onActivityResult: Null Pointer exception");
+//            }
         }
     }
 
@@ -302,5 +381,80 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
     public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
         inputData.setPrice(value);
         Log.d(TAG, "onValueChange: " + value);
+    }
+
+    private File createFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void takePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null) {
+                photoUri = FileProvider.getUriForFile(this, "com.example.atelieruldigitalfinalproject.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+            }
+        }
+    }
+
+    private void galleryAddPicture(final File file) {
+        try {
+            MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), file.getName(), null);
+            getApplicationContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setPic(String currentPhotoPath) {
+
+        int targetW = locationImageView.getWidth();
+        int targetH = locationImageView.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.max(1, Math.min(photoW / targetW, photoH / targetH));
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
+        locationImageView.setImageBitmap(bitmap);
+    }
+
+    private String getRealPathFromURI(Uri contentUri) {
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            System.out.println("column_index of selected image is:" + column_index);
+            cursor.moveToFirst();
+            System.out.println("selected image path is:" + cursor.getString(column_index));
+            return cursor.getString(column_index);
+        } catch (Exception e) {
+            return contentUri.getPath();
+        }
     }
 }

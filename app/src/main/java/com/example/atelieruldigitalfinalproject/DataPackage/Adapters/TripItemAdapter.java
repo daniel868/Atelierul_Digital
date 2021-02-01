@@ -1,8 +1,11 @@
 package com.example.atelieruldigitalfinalproject.DataPackage.Adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -12,7 +15,8 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnDeleteButtonClick;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.MyLongListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnClickListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnTogglePressListener;
@@ -26,17 +30,21 @@ public class TripItemAdapter extends RecyclerView.Adapter<TripItemAdapter.TripIt
 
 
     private List<InputData> dataList = new ArrayList<>();
+
+
     private MyLongListener listener;
     private OnTogglePressListener toggleListener;
     private OnClickListener clickListener;
+    private OnDeleteButtonClick deleteListener;
 
     public TripItemAdapter() {
     }
 
-    public TripItemAdapter(MyLongListener listener, OnTogglePressListener toggleListener, OnClickListener clickListener) {
+    public TripItemAdapter(MyLongListener listener, OnTogglePressListener toggleListener, OnClickListener clickListener, OnDeleteButtonClick deleteListener) {
         this.listener = listener;
         this.toggleListener = toggleListener;
         this.clickListener = clickListener;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -48,7 +56,7 @@ public class TripItemAdapter extends RecyclerView.Adapter<TripItemAdapter.TripIt
 
     @Override
     public void onBindViewHolder(@NonNull TripItemHolder holder, int position) {
-        holder.bindData(dataList.get(position), listener, toggleListener, this,clickListener);
+        holder.bindData(dataList.get(position), listener, toggleListener, this, clickListener, deleteListener);
     }
 
     public void setDataList(List<InputData> dataList) {
@@ -77,18 +85,19 @@ public class TripItemAdapter extends RecyclerView.Adapter<TripItemAdapter.TripIt
             tripDestination = itemView.findViewById(R.id.item_destination_here);
             tripPrice = itemView.findViewById(R.id.itemTripPrice);
             favoriteButton = itemView.findViewById(R.id.favoriteImageButton);
-
+            moreImageButton = itemView.findViewById(R.id.deleteImageButton);
         }
 
         public void bindData(InputData inputData, MyLongListener listener, OnTogglePressListener toggleListener,
-                             TripItemAdapter tripItemAdapter, OnClickListener clickListener) {
+                             TripItemAdapter tripItemAdapter, OnClickListener clickListener, OnDeleteButtonClick deleteListener) {
 
-            itemImageView.setImageBitmap(inputData.getImageBitmap());
+            itemImageView.setImageURI(Uri.parse(inputData.getImageFilePath()));
             itemRatingBar.setRating(inputData.getRatingBar());
             tripName.setText(inputData.getTripName());
             tripDestination.setText(inputData.getTripDestination());
             tripPrice.setText("$" + inputData.getPrice());
             favoriteButton.setBackgroundResource(inputData.isFavourite() ? R.drawable.ic_baseline_favorite_24 : R.drawable.ic_baseline_black_24);
+
 
             itemView.setOnLongClickListener(v -> {
                 listener.onLongClick(inputData.getId());
@@ -99,9 +108,14 @@ public class TripItemAdapter extends RecyclerView.Adapter<TripItemAdapter.TripIt
                 toggleListener.onTogglePress(inputData, tripItemAdapter);
             });
 
-            itemView.setOnClickListener(v->{
+            itemView.setOnClickListener(v -> {
                 clickListener.onClick(inputData.getId());
             });
+
+            moreImageButton.setOnClickListener(v -> {
+                deleteListener.delete(inputData);
+            });
         }
+
     }
 }

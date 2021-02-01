@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/background_limitor"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/selectTripTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/select_trip_type"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/selectImageTrip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        style="@style/Widget.MaterialComponents.CompoundButton.RadioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/selectTripTypeText"
+        app:layout_constraintTop_toBottomOf="@id/selectTripTypeText">
+
+        <RadioButton
+            android:id="@+id/mountains"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mountains_option" />
+
+        <RadioButton
+            android:id="@+id/seaSide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sea_side_option" />
+
+        <RadioButton
+            android:id="@+id/cityBreak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/city_break_option" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/selectImageTrip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/select_trip_image"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/selectTripTypeText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/select_location_imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_add_a_photo_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/radio_group"
+        app:layout_constraintEnd_toEndOf="@id/selectImageTrip"
+        app:layout_constraintStart_toStartOf="@id/selectImageTrip"
+        app:layout_constraintTop_toBottomOf="@id/selectImageTrip" />
+
+    <TextView
+        android:id="@+id/sliderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/select_price"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/priceSlider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stepSize="10.0"
+        android:valueFrom="0.0"
+        android:valueTo="400.0"
+        app:layout_constraintEnd_toEndOf="@id/selectImageTrip"
+        app:layout_constraintStart_toStartOf="@id/selectTripTypeText"
+        app:layout_constraintTop_toBottomOf="@id/sliderTextView" />
+
+    <TextView
+        android:id="@+id/ratingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/select_rating"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priceSlider" />
+
+    <RatingBar
+        android:id="@+id/ratingStarBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingTextView" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:id="@+id/insertDataFab"
+        android:src="@drawable/ic_save_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingStarBar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,122 +1,133 @@
 package com.example.atelieruldigitalfinalproject;
 
+import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.InfoAdapter;
-import com.example.atelieruldigitalfinalproject.DataPackage.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
 import com.example.atelieruldigitalfinalproject.DataPackage.ViewModels.DetailsViewModel;
-import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.DataAPI.Weather;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.DataAPI.WeatherData;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.NetworkClass;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.WeatherService;
 import com.example.atelieruldigitalfinalproject.UIFragments.MainFragment;
+import com.google.android.material.slider.Slider;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements Slider.OnChangeListener {
     private static final String TAG = "DetailActivity";
     private ImageView detailImageView;
-    private TextView startDateTxtView, finishDateTxtView, priceTxtView, weatherTxtView, tripNameTxtView, tripDestinationTxtView, tripTypeTxtView;
+    private TextView start_finish_textView, priceTxtView, peopleNumber, total, tripNameTxtView, tripDestinationTxtView, tripTypeTxtView,ratingTxtView;
     private RatingBar ratingBar;
-    private RecyclerView infoRecycleView;
-    private LinearLayoutManager linearLayoutManager;
-    private InfoAdapter adapter;
+    private TextView api_humidity, api_minimTemp, api_feelsLike, api_windSpeed;
+    private Slider slider;
+
 
     private DetailsViewModel viewModel;
     private WeatherService weatherService;
+    private Repository repository;
+
+    private float tripPrice;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_test);
+        setContentView(R.layout.detail_activity_2);
 
         viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
         weatherService = NetworkClass.getInstance().create(WeatherService.class);
+        repository = new Repository(this);
         initViews();
-        setWeatherData();
+
 
         if (viewModel.getInputData() != null) {
             setData(viewModel.getInputData());
-            setRecycleViewData(viewModel.getInputData());
+            setWeatherData(viewModel.getInputData());
+
         } else {
             handleIntent();
         }
     }
 
     private void initViews() {
-        detailImageView = findViewById(R.id.infoImageView);
-        startDateTxtView = findViewById(R.id.infoStartDateTxtView);
-        finishDateTxtView = findViewById(R.id.infoFinishDateTxtView);
-        priceTxtView = findViewById(R.id.infoPriceTxtView);
-        weatherTxtView = findViewById(R.id.infoMaxTemperature);
-        tripNameTxtView = findViewById(R.id.infoTripNameTxtView);
-        tripDestinationTxtView = findViewById(R.id.infoTripDestinationTxtView);
-        tripTypeTxtView = findViewById(R.id.infoTripTypeTxtView);
-        ratingBar = findViewById(R.id.infoRatinBar);
-        infoRecycleView = findViewById(R.id.suggestedTrips);
-        adapter = new InfoAdapter();
+        detailImageView = findViewById(R.id.background_image);
 
-        linearLayoutManager = new LinearLayoutManager(DetailActivity.this);
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        infoRecycleView.setLayoutManager(linearLayoutManager);
+        priceTxtView = findViewById(R.id.trip_price);
+
+        tripNameTxtView = findViewById(R.id.destinationNameTextView);
+        tripDestinationTxtView = findViewById(R.id.trip_destination_here);
+        tripTypeTxtView = findViewById(R.id.trip_type);
+
+        ratingBar = findViewById(R.id.detailRatingBar);
+        start_finish_textView = findViewById(R.id.start_finish_date);
+        ratingTxtView = findViewById(R.id.txtViewRating);
+
+        api_humidity = findViewById(R.id.humidity_API);
+        api_feelsLike = findViewById(R.id.feels_like_API);
+        api_minimTemp = findViewById(R.id.minim_API);
+        api_windSpeed = findViewById(R.id.wind_API);
+
+        peopleNumber = findViewById(R.id.personsNumber);
+        total = findViewById(R.id.total);
+        slider = findViewById(R.id.slider);
+        slider.addOnChangeListener(this);
 
     }
 
-    private void setRecycleViewData(InputData currentInputData) {
-        List<InputData> suggestedList = new ArrayList<>();
-        for (InputData defaultInputData : Utils.testItems(DetailActivity.this)) {
-            if (defaultInputData.getTripType().equals(currentInputData.getTripType()) &
-                    !defaultInputData.getTripName().equals(currentInputData.getTripName())) {
-                suggestedList.add(defaultInputData);
-            }
-        }
-        Log.d(TAG, "setRecycleViewData: Size " + suggestedList.size());
-        adapter.setInputData(suggestedList);
-        infoRecycleView.setAdapter(adapter);
-    }
 
     private void handleIntent() {
         if (getIntent() != null) {
             int id = getIntent().getIntExtra(MainFragment.ID_POST, -1);
             if (id != -1) {
-                setData(Utils.getById(id, getApplicationContext()));
-                setRecycleViewData(Utils.getById(id, getApplicationContext()));
-                viewModel.setInputData(Utils.getById(id, getApplicationContext()));
+                repository.getTripById(id).observe(this, inputData -> {
+                    setData(inputData);
+
+                    setWeatherData(inputData);
+
+                    viewModel.setInputData(inputData);
+                });
+
             }
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void setData(InputData inputData) {
-        detailImageView.setImageBitmap(inputData.getImageBitmap());
-        startDateTxtView.setText(inputData.getStartDay() + "/" + inputData.getStartMonth() + "/" + inputData.getStartYear());
-        finishDateTxtView.setText(inputData.getFinishDay() + "/" + inputData.getFinishMonth() + "/" + inputData.getFinishYear());
-        priceTxtView.setText("$ " + inputData.getPrice());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+
+        priceTxtView.setText(String.format("$ %s", inputData.getPrice()));
         tripTypeTxtView.setText(inputData.getTripType());
         tripNameTxtView.setText(inputData.getTripName());
-        tripDestinationTxtView.setText(inputData.getTripDestination());
+        tripDestinationTxtView.setText(String.format("%s", "Visit " + inputData.getTripDestination()));
         ratingBar.setRating(inputData.getRatingBar());
+        ratingTxtView.setText(String.format("%s",inputData.getRatingBar()));
+        start_finish_textView.setText(
+                String.format("%s / %s", simpleDateFormat.format(inputData.getStartDate()), simpleDateFormat.format(inputData.getFinishDate())));
+
+        detailImageView.setImageURI(Uri.parse(inputData.getImageFilePath()));
+
+        total.setText("Total: $0");
+        peopleNumber.setText("0 persons");
+        tripPrice = inputData.getPrice();
     }
 
-    private void setWeatherData() {
-        weatherService.getDataByCity("Arad,RO").enqueue(new Callback<WeatherData>() {
+    private void setWeatherData(InputData inputData) {
+        weatherService.getDataByCity(inputData.getTripDestination()).enqueue(new Callback<WeatherData>() {
             @Override
             public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                 handleResponse(response);
@@ -129,12 +140,24 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("DefaultLocale")
     private void handleResponse(@NonNull Response<WeatherData> response) {
         WeatherData weatherData = response.body();
         if (weatherData != null) {
-            weatherTxtView.setText("MaxTemperatures " + weatherData.getMain().getTempMax());
+            api_minimTemp.setText(String.format("%s Degree", weatherData.getMain().getTempMin()));
+            api_windSpeed.setText(String.format("%s km/h", weatherData.getWind().getSpeed()));
+            api_feelsLike.setText(String.format("%s Degree", weatherData.getMain().getFeelsLike()));
+            api_humidity.setText(String.format("%s %s", weatherData.getMain().getHumidity(), "%"));
         } else {
             Log.d(TAG, "handleResponse: Failed");
         }
+    }
+
+
+    @Override
+    public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+        peopleNumber.setText(String.format("%s persons", value));
+        float trip_price = value * tripPrice;
+        total.setText(String.format("Total:$ %s", trip_price));
     }
 }

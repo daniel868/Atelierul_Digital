@@ -17,12 +17,6 @@
         tools:layout="@layout/fragment_about_us" />
 
     <fragment
-        android:id="@+id/shareFragment"
-        android:name="com.example.atelieruldigitalfinalproject.UIFragments.ShareFragment"
-        android:label="Share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
         android:id="@+id/contactFragment"
         android:name="com.example.atelieruldigitalfinalproject.UIFragments.ContactFragment"
         android:label="Contact"
@@ -37,7 +31,11 @@
         android:id="@+id/tabsFragment"
         android:name="com.example.atelieruldigitalfinalproject.UIFragments.SwitchFragment"
         android:label="Trips"
-        tools:layout="@layout/fragment_switch"
-        />
+        tools:layout="@layout/fragment_switch" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.atelieruldigitalfinalproject.UIFragments.CategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category"/>
 
 </navigation>
