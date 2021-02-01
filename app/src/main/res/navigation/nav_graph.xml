@@ -36,6 +36,12 @@
         android:id="@+id/categoryFragment"
         android:name="com.example.atelieruldigitalfinalproject.UIFragments.CategoryFragment"
         android:label="Category"
-        tools:layout="@layout/fragment_category"/>
+        tools:layout="@layout/fragment_category" />
+
+    <fragment
+        android:id="@+id/myPaymentsFragment"
+        android:name="com.example.atelieruldigitalfinalproject.UIFragments.MyPaymentsFragment"
+        android:label="MyPayments"
+        tools:layout="@layout/fragment_payments" />
 
 </navigation>

@@ -1,9 +1,12 @@
 package com.example.atelieruldigitalfinalproject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,13 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.DataPackage.ViewModels.DetailsViewModel;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.DataAPI.WeatherData;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.NetworkClass;
 import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.WeatherService;
 import com.example.atelieruldigitalfinalproject.UIFragments.MainFragment;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 
@@ -28,20 +33,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailActivity extends AppCompatActivity implements Slider.OnChangeListener {
+public class DetailActivity extends AppCompatActivity implements Slider.OnChangeListener, View.OnClickListener {
+    public static final String TOTAL_KEY = "total_key";
+    public static final String TRIP_NAME = "trip_name_key";
+    public static final int ACTION_ID = 3;
+
     private static final String TAG = "DetailActivity";
     private ImageView detailImageView;
-    private TextView start_finish_textView, priceTxtView, peopleNumber, total, tripNameTxtView, tripDestinationTxtView, tripTypeTxtView,ratingTxtView;
+    private TextView start_finish_textView, priceTxtView, peopleNumber, total, tripNameTxtView, tripDestinationTxtView, tripTypeTxtView, ratingTxtView;
     private RatingBar ratingBar;
     private TextView api_humidity, api_minimTemp, api_feelsLike, api_windSpeed;
     private Slider slider;
 
+    private Button bookBtn;
 
     private DetailsViewModel viewModel;
     private WeatherService weatherService;
-    private Repository repository;
+    private TripRepository repository;
 
-    private float tripPrice;
+    private float tripPrice, trip_price;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +60,7 @@ public class DetailActivity extends AppCompatActivity implements Slider.OnChange
 
         viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
         weatherService = NetworkClass.getInstance().create(WeatherService.class);
-        repository = new Repository(this);
+        repository = new TripRepository(this);
         initViews();
 
 
@@ -86,6 +96,9 @@ public class DetailActivity extends AppCompatActivity implements Slider.OnChange
         slider = findViewById(R.id.slider);
         slider.addOnChangeListener(this);
 
+        bookBtn = findViewById(R.id.book_btn);
+        bookBtn.setOnClickListener(this);
+
     }
 
 
@@ -115,7 +128,7 @@ public class DetailActivity extends AppCompatActivity implements Slider.OnChange
         tripNameTxtView.setText(inputData.getTripName());
         tripDestinationTxtView.setText(String.format("%s", "Visit " + inputData.getTripDestination()));
         ratingBar.setRating(inputData.getRatingBar());
-        ratingTxtView.setText(String.format("%s",inputData.getRatingBar()));
+        ratingTxtView.setText(String.format("%s", inputData.getRatingBar()));
         start_finish_textView.setText(
                 String.format("%s / %s", simpleDateFormat.format(inputData.getStartDate()), simpleDateFormat.format(inputData.getFinishDate())));
 
@@ -157,7 +170,30 @@ public class DetailActivity extends AppCompatActivity implements Slider.OnChange
     @Override
     public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
         peopleNumber.setText(String.format("%s persons", value));
-        float trip_price = value * tripPrice;
+        trip_price = value * tripPrice;
         total.setText(String.format("Total:$ %s", trip_price));
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra(TOTAL_KEY, trip_price);
+        intent.putExtra(TRIP_NAME, tripNameTxtView.getText().toString());
+        startActivityForResult(intent, ACTION_ID);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        View view = findViewById(R.id.view_snack);
+        if (requestCode == ACTION_ID && resultCode == RESULT_OK) {
+            Snackbar.make(view, "Finish Payment", BaseTransientBottomBar.LENGTH_SHORT)
+                    .setAction("OK", v -> {
+                    }).show();
+        } else {
+            Snackbar.make(view, "Can't process the payment ", BaseTransientBottomBar.LENGTH_SHORT)
+                    .setAction("OK", v -> {
+                    }).show();
+        }
     }
 }

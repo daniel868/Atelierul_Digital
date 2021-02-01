@@ -19,17 +19,14 @@ import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputD
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.MyLongListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnClickListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnTogglePressListener;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.DetailActivity;
 import com.example.atelieruldigitalfinalproject.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FavouriteFragment extends Fragment implements OnClickListener, MyLongListener, OnTogglePressListener, OnDeleteButtonClick {
     private RecyclerView favouriteRecycleView;
     private TripItemAdapter tripItemAdapter;
-    private Repository repository;
+    private TripRepository repository;
 
 
     public FavouriteFragment() {
@@ -45,7 +42,7 @@ public class FavouriteFragment extends Fragment implements OnClickListener, MyLo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        repository = new Repository(getContext());
+        repository = new TripRepository(getContext());
         favouriteRecycleView = view.findViewById(R.id.favouriteRecycleView);
         initRecycleView();
     }

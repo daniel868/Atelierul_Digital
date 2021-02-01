@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int[] getTopLevelDestination() {
-        return new int[]{R.id.tabsFragment, R.id.aboutUsFragment, R.id.contactFragment,R.id.categoryFragment};
+        return new int[]{R.id.tabsFragment, R.id.aboutUsFragment, R.id.contactFragment,R.id.categoryFragment,R.id.myPaymentsFragment};
     }
 
     @Override

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/view_snack"
+    >
 
 
     <ImageView
@@ -38,16 +40,28 @@
         tools:rating="4.5" />
 
     <TextView
+        android:id="@+id/txtViewRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/detailRatingBar"
-        app:layout_constraintTop_toTopOf="@id/detailRatingBar"
-        tools:text="3.5"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/detailRatingBar"
-        android:id="@+id/txtViewRating"
+        app:layout_constraintStart_toEndOf="@id/detailRatingBar"
+        app:layout_constraintTop_toTopOf="@id/detailRatingBar"
+        tools:text="3.5" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#ACC394"
+        app:layout_constraintBottom_toTopOf="@id/destinationNameTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/book_now"
+        android:textColor="@color/black"
+        android:id="@+id/book_btn"
         />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"

@@ -21,9 +21,7 @@ import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.MyLongList
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnClickListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Listeners.OnTogglePressListener;
 import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.TripItemAdapter;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
-import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.NetworkClass;
-import com.example.atelieruldigitalfinalproject.DataPackage.WeatherAPI.Network.WeatherService;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.DetailActivity;
 import com.example.atelieruldigitalfinalproject.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +37,7 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
     private FloatingActionButton floatingActionButton;
     private RecyclerView tripRecycleView;
 
-    private Repository repository;
+    private TripRepository repository;
 
 
     public MainFragment() {
@@ -75,7 +73,7 @@ public class MainFragment extends Fragment implements MyLongListener, OnTogglePr
         tripRecycleView.setAdapter(tripItemAdapter);
         tripRecycleView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        repository = new Repository(getContext());
+        repository = new TripRepository(getContext());
         repository.getAllTrips().observe(getViewLifecycleOwner(), tripItemAdapter::setDataList);
 
     }

@@ -6,22 +6,17 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.CategoryAdapter;
-import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.TripItemAdapter;
 import com.example.atelieruldigitalfinalproject.DataPackage.Adapters.TypeAdapter;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.R;
 import com.example.atelieruldigitalfinalproject.UIFragments.CategoryFragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding4.widget.RxTextView;
 import com.jakewharton.rxbinding4.widget.TextViewTextChangeEvent;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -37,7 +32,7 @@ public class CategoryActivity extends AppCompatActivity {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private String tripType;
-    private Repository repository;
+    private TripRepository repository;
 
 
     private RecyclerView recyclerView;
@@ -55,7 +50,7 @@ public class CategoryActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchBar = findViewById(R.id.search_bar);
 
-        repository = new Repository(this);
+        repository = new TripRepository(this);
         handleIntent();
 
         Disposable disposable = RxTextView.textChangeEvents(searchBar).skipInitialValue()

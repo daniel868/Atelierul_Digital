@@ -16,13 +16,13 @@ import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class Repository {
+public class TripRepository {
     private static final String TAG = "Repository";
 
     private Context context;
     private AppDatabase appDatabase;
 
-    public Repository(Context context) {
+    public TripRepository(Context context) {
         this.context = context;
         appDatabase = AppDatabase.getInstance(context);
     }

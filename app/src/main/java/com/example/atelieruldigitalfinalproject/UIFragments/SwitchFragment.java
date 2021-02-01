@@ -10,11 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,7 +22,7 @@ import java.util.List;
 public class SwitchFragment extends Fragment {
     private MainFragment mainFragment;
     private FavouriteFragment favouriteFragment;
-    private Repository repository;
+    private TripRepository repository;
 
     private ViewPager viewPager;
 
@@ -35,7 +33,7 @@ public class SwitchFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_switch, container, false);
-        repository = new Repository(container.getContext());
+        repository = new TripRepository(container.getContext());
         mainFragment = new MainFragment();
         favouriteFragment = new FavouriteFragment();
 

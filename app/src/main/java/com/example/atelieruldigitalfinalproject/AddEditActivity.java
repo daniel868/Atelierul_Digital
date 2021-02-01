@@ -10,31 +10,25 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Repository;
+import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.TripRepository;
 import com.example.atelieruldigitalfinalproject.DataPackage.ViewModels.AddEditViewModel;
 import com.example.atelieruldigitalfinalproject.DataPackage.RoomDB.Entity.InputData;
 import com.example.atelieruldigitalfinalproject.UIFragments.MainFragment;
@@ -81,14 +75,14 @@ public class AddEditActivity extends AppCompatActivity implements RadioGroup.OnC
     private String currentPhotoPath;
     private Uri photoUri;
 
-    private Repository repository;
+    private TripRepository repository;
 
     int updatedId = DEFAULT_VALUE;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_edit_v2);
-        repository = new Repository(this);
+        repository = new TripRepository(this);
 
         initViews();
         initData();

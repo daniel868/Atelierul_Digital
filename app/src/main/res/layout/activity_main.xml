@@ -20,6 +20,7 @@
         app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/header"
         android:id="@+id/navigationView"
+        android:background="@color/tab_background_color"
         />
 
 

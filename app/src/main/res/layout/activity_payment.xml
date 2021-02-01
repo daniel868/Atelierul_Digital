@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/recycle_background_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/cardDetailsTxtView"
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/enter_card_details"
+            android:textAlignment="center"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/recycle_background_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardDetailsTxtView" />
+
+        <TextView
+            android:id="@+id/creditCardNumberTxtView"
+            style="@style/TextAppearance.AppCompat.Display2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/cred_card_number"
+            android:textColor="@color/secondary_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/credCardInputField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="@id/creditCardNumberTxtView"
+            app:layout_constraintTop_toBottomOf="@id/creditCardNumberTxtView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/credCardNumberEditText"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:background="#ffff"
+                android:backgroundTint="@color/recycle_background_color"
+                android:drawableEnd="@drawable/visa"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/valid"
+            style="@style/TextAppearance.AppCompat.Display2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/valid"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/credCardInputField"
+            app:layout_constraintTop_toBottomOf="@id/credCardInputField" />
+
+        <Spinner
+            android:id="@+id/month_spinner"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="@id/valid"
+            app:layout_constraintTop_toBottomOf="@id/valid" />
+
+        <Spinner
+            android:id="@+id/year_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/month_spinner"
+            app:layout_constraintTop_toTopOf="@id/month_spinner" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/cvv"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:maxEms="3"
+            app:layout_constraintBottom_toBottomOf="@id/month_spinner"
+            app:layout_constraintEnd_toEndOf="@id/credCardInputField"
+            app:layout_constraintStart_toEndOf="@id/year_spinner" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cvv"
+            android:textColor="@color/secondary_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/cvv"
+            app:layout_constraintTop_toTopOf="@id/valid" />
+
+        <TextView
+            android:id="@+id/holders"
+            style="@style/TextAppearance.AppCompat.Display2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/card_holder_s_name"
+            android:textColor="@color/secondary_text"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/month_spinner"
+            app:layout_constraintTop_toBottomOf="@id/month_spinner" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/carHoldersName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="@id/holders"
+            app:layout_constraintTop_toBottomOf="@id/holders">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/holdersNameEditText"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:background="#ffff"
+                android:backgroundTint="@color/recycle_background_color"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/finish_pay_btn"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/green_light"
+            android:clickable="true"
+            android:text="@string/pay_now"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carHoldersName" />
+
+        <TextView
+            android:id="@+id/total_pay_txtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/creditCardNumberTxtView"
+            tools:text="Total to pay: $2000" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

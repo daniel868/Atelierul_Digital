@@ -17,16 +17,19 @@
         android:theme="@style/Theme.AtelierulDigitalFinalProject"
         android:usesCleartextTraffic="true">
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".AddEditActivity" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddEditActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".SplashScreenActivity"></activity>
         <activity android:name=".DataPackage.CategoryActivity" />
+        <activity android:name=".PaymentActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
